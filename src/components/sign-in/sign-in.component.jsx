@@ -31,17 +31,22 @@ class SignIn extends Component {
         const token = credential.accessToken;
         // The signed-in user info.
         const user = result.user;
-        // ...
+        // console.log(user);
       })
       .catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
-        // The email of the user's account used.
         const email = error.email;
-        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
-        // ...
+
+        console.log(
+          `
+          Error Code: ${errorCode};
+          Error Message: ${errorMessage};
+          The email of the user's account used: ${email};
+          The AuthCredential type that was used: ${credential};
+          `
+        );
       });
 
   render() {
