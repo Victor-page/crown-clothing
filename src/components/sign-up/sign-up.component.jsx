@@ -38,7 +38,6 @@ class SignUp extends Component {
         password
       );
       const user = userCredential.user;
-
       await createUserProfileDocument(user, { displayName });
 
       this.setState(initialFormState);

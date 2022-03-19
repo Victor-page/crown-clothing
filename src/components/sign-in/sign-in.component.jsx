@@ -1,9 +1,5 @@
 import { Component } from 'react';
-import {
-  signInWithPopup,
-  GoogleAuthProvider,
-  signInWithEmailAndPassword,
-} from 'firebase/auth';
+import { signInWithPopup, signInWithEmailAndPassword } from 'firebase/auth';
 
 import FormInput from '../form-input/form-input.component';
 import './sign-in.styles.scss';
@@ -18,52 +14,20 @@ class SignIn extends Component {
     this.state = { email: '', password: '' };
   }
 
-  handleSubmit = async (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
     const { email, password } = this.state;
 
-    try {
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      const user = userCredential.user;
-    } catch (error) {
-      console.log(error);
-    } finally {
-      this.setState({ email: '', password: '' });
-    }
+    signInWithEmailAndPassword(auth, email, password)
+      .catch(console.log)
+      .finally(() => this.setState({ email: '', password: '' }));
   };
 
   handleChange = ({ target: { value, name } }) =>
     this.setState({ [name]: value });
 
   handleSignInWithGoogle = () =>
-    signInWithPopup(auth, provider)
-      .then((result) => {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        const credential = GoogleAuthProvider.credentialFromResult(result);
-        const token = credential.accessToken;
-        // The signed-in user info.
-        const user = result.user;
-        // console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.email;
-        const credential = GoogleAuthProvider.credentialFromError(error);
-
-        console.log(
-          `
-          Error Code: ${errorCode};
-          Error Message: ${errorMessage};
-          The email of the user's account used: ${email};
-          The AuthCredential type that was used: ${credential};
-          `
-        );
-      });
+    signInWithPopup(auth, provider).catch(console.log);
 
   render() {
     const {

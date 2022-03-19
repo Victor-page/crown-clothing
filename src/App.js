@@ -21,8 +21,7 @@ class App extends Component {
   componentDidMount() {
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async (userAuth) => {
       if (!userAuth) {
-        this.setState({ currentUser: userAuth });
-        return;
+        return this.setState({ currentUser: userAuth });
       }
 
       const userRef = await createUserProfileDocument(userAuth);
@@ -39,9 +38,11 @@ class App extends Component {
   }
 
   render() {
+    const { currentUser } = this.state;
+
     return (
       <div>
-        <Header currentUser={this.state.currentUser} />
+        <Header currentUser={currentUser} />
         <Switch>
           <Route exact component={HomePage} path="/" />
           <Route component={ShopPage} path="/shop" />
