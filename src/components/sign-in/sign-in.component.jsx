@@ -1,5 +1,9 @@
 import { Component } from 'react';
-import { signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  signInWithEmailAndPassword,
+} from 'firebase/auth';
 
 import FormInput from '../form-input/form-input.component';
 import './sign-in.styles.scss';
@@ -14,10 +18,22 @@ class SignIn extends Component {
     this.state = { email: '', password: '' };
   }
 
-  handleSubmit = (event) => {
+  handleSubmit = async (event) => {
     event.preventDefault();
+    const { email, password } = this.state;
 
-    this.setState({ email: '', password: '' });
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      const user = userCredential.user;
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.setState({ email: '', password: '' });
+    }
   };
 
   handleChange = ({ target: { value, name } }) =>
