@@ -1,5 +1,6 @@
 .sign-up {
   display: flex;
   flex-direction: column;
-  max-width: 380px;
+  flex: 0 0 380px;
+  width: 380px;
 }
