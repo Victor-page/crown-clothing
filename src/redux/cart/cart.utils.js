@@ -9,14 +9,9 @@ const increaseQuantityByOneToExistingCartItem = (cartItemToAdd, cartItem) =>
       }
     : cartItem;
 
-export const addItemToCart = (cartItems, cartItemToAdd) => {
-  const existingCartItem = cartItems.find(
-    findExistingCartItem.bind(null, cartItemToAdd)
-  );
-
-  return existingCartItem
+export const addItemToCart = (cartItems, cartItemToAdd) =>
+  cartItems.find(findExistingCartItem.bind(null, cartItemToAdd))
     ? cartItems.map(
         increaseQuantityByOneToExistingCartItem.bind(null, cartItemToAdd)
       )
     : [...cartItems, { ...cartItemToAdd, quantity: 1 }];
-};
