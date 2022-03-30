@@ -15,3 +15,6 @@ export const addItemToCart = (cartItems, cartItemToAdd) =>
         increaseQuantityByOneToExistingCartItem.bind(null, cartItemToAdd)
       )
     : [...cartItems, { ...cartItemToAdd, quantity: 1 }];
+
+export const calculateCartItemsCount = (accumalatedQuantity, { quantity }) =>
+  accumalatedQuantity + quantity;
