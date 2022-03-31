@@ -18,3 +18,8 @@ export const addItemToCart = (cartItems, cartItemToAdd) =>
 
 export const calculateCartItemsCount = (accumalatedQuantity, { quantity }) =>
   accumalatedQuantity + quantity;
+
+export const calculateCartTotalPrice = (
+  accumalatedPrice,
+  { quantity, price }
+) => accumalatedPrice + quantity * price;
