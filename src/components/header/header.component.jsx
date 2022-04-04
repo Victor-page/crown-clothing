@@ -12,33 +12,41 @@ import CartDropdown from '../cart-dropdown/cart-dropdown.component';
 import './header.styles.scss';
 import { ReactComponent as Logo } from '../../assets/crown.svg';
 
-const Header = ({ currentUser, hidden }) => (
-  <div className="header">
-    <Link className="logo-container" to="/">
-      <Logo className="logo" />
-    </Link>
+const Header = ({ currentUser, hidden }) => {
+  const signOutHandler = () => auth.signOut();
 
-    <div className="options">
-      <Link className="option" to="/shop">
-        SHOP
-      </Link>
-      <Link className="option" to="">
-        CONTACT
-      </Link>
-      {currentUser ? (
-        <div className="option" onClick={() => auth.signOut()}>
-          SIGN OUT
-        </div>
-      ) : (
-        <Link className="option" to="/signin">
-          SIGN IN
-        </Link>
-      )}
-      <CartIcon />
+  const signOutSection = (
+    <div className="option" onClick={signOutHandler}>
+      SIGN OUT
     </div>
-    {!hidden && <CartDropdown />}
-  </div>
-);
+  );
+
+  const signInSection = (
+    <Link className="option" to="/signin">
+      SIGN IN
+    </Link>
+  );
+
+  return (
+    <div className="header">
+      <Link className="logo-container" to="/">
+        <Logo className="logo" />
+      </Link>
+
+      <div className="options">
+        <Link className="option" to="/shop">
+          SHOP
+        </Link>
+        <Link className="option" to="">
+          CONTACT
+        </Link>
+        {currentUser ? signOutSection : signInSection}
+        <CartIcon />
+      </div>
+      {!hidden && <CartDropdown />}
+    </div>
+  );
+};
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,

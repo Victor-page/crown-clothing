@@ -1,17 +1,19 @@
+import classNames from 'classnames';
+
 import './form-input.style.scss';
 
-const FormInput = ({ handleChange, label, ...otherProps }) => (
-  <div className="group">
-    <input className="form-input" onChange={handleChange} {...otherProps} />
+const FormInput = ({ handleChange, label, ...otherProps }) => {
+  const labelClassNames = classNames('form-input-label', {
+    shrink: otherProps.value.length,
+  });
 
-    {label && (
-      <label
-        className={`${otherProps.value.length && 'shrink'} form-input-label`}
-      >
-        {label}
-      </label>
-    )}
-  </div>
-);
+  return (
+    <div className="group">
+      <input className="form-input" onChange={handleChange} {...otherProps} />
+
+      {label && <label className={labelClassNames}>{label}</label>}
+    </div>
+  );
+};
 
 export default FormInput;

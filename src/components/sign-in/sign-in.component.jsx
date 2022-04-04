@@ -52,7 +52,6 @@ class SignIn extends Component {
             handleChange={handleChange}
             label="email"
           />
-
           <FormInput
             type="password"
             name="password"
@@ -62,6 +61,7 @@ class SignIn extends Component {
             handleChange={handleChange}
             label="password"
           />
+
           <div className="buttons">
             <CustomButton type="submit">Sign In</CustomButton>
             <CustomButton onClick={handleSignInWithGoogle} isGoogleSignIn>
