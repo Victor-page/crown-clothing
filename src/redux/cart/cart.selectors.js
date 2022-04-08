@@ -2,7 +2,7 @@ import { createSelector } from 'reselect';
 
 import { calculateCartItemsCount, calculateCartTotalPrice } from './cart.utils';
 
-const selectCart = (state) => state.cart;
+export const selectCart = (state) => state.cart;
 
 export const selectCartItems = createSelector(
   [selectCart],
