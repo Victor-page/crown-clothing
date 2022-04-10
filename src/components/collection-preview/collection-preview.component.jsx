@@ -1,19 +1,23 @@
-import './collection-preview.styles.scss';
-
 import CollectionItem from '../collection-item/collection-item.component';
+
+import {
+  CollectionPreviewContainer,
+  Title,
+  Preview,
+} from './collection-preview.styles';
 
 const CollectionPreview = ({ title, items }) => {
   const leaveFirstFourCollectionItems = (_, index) => index < 4;
 
   return (
-    <div className="collection-preview">
-      <h1 className="title">{title}</h1>
-      <div className="preview">
+    <CollectionPreviewContainer>
+      <Title>{title}</Title>
+      <Preview>
         {items.filter(leaveFirstFourCollectionItems).map((item) => (
           <CollectionItem key={item.id} item={item} />
         ))}
-      </div>
-    </div>
+      </Preview>
+    </CollectionPreviewContainer>
   );
 };
 

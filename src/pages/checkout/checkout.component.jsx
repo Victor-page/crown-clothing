@@ -9,27 +9,34 @@ import {
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
 import StripeCheckoutButton from '../../components/stripe-button/stripe-button.component';
 
-import './checkout.styles.scss';
+import {
+  CheckoutPageContainer,
+  CheckoutHeader,
+  HeaderBlock,
+  Total,
+  WarningContainer,
+  WarningText,
+} from './checkout.styles';
 
 const CheckoutPage = ({ cartItems, total }) => (
-  <div className="checkout-page">
-    <div className="checkout-header">
-      <div className="header-block">
+  <CheckoutPageContainer>
+    <CheckoutHeader>
+      <HeaderBlock>
         <span>Product</span>
-      </div>
-      <div className="header-block">
+      </HeaderBlock>
+      <HeaderBlock>
         <span>Description</span>
-      </div>
-      <div className="header-block">
+      </HeaderBlock>
+      <HeaderBlock>
         <span>Quantity</span>
-      </div>
-      <div className="header-block">
+      </HeaderBlock>
+      <HeaderBlock>
         <span>Price</span>
-      </div>
-      <div className="header-block">
+      </HeaderBlock>
+      <HeaderBlock>
         <span>Remove</span>
-      </div>
-    </div>
+      </HeaderBlock>
+    </CheckoutHeader>
     {cartItems.map(({ name, imageUrl, price, quantity, id }) => (
       <CheckoutItem
         key={id}
@@ -40,13 +47,15 @@ const CheckoutPage = ({ cartItems, total }) => (
         id={id}
       />
     ))}
-    <div className="total">Total : ${total}</div>
-    <div className="test-warning">
-      <p>*Please use the following test credit card for payments*</p>
-      <p>4242 4242 4242 4242 - Exp: 12/34 - CVV: 123</p>
-    </div>
+    <Total>Total: ${total}</Total>
+    <WarningContainer>
+      <WarningText>
+        *Please use the following test credit card for payments*
+      </WarningText>
+      <WarningText>4242 4242 4242 4242 - Exp: 12/34 - CVV: 123</WarningText>
+    </WarningContainer>
     <StripeCheckoutButton price={total} />
-  </div>
+  </CheckoutPageContainer>
 );
 
 const mapStateToProps = createStructuredSelector({

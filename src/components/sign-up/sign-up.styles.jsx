@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-export const HomePageContainer = styled.div`
+export const SignUpContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center;
+  flex: 0 0 380px;
+  width: 380px;
 `;
