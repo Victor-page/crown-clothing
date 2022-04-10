@@ -1,7 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-import * as palette from './variables.js';
-import * as mixins from './mixins';
+const shrinkLabelStyles = css`
+  top: -14px;
+  font-size: 12px;
+  color: ${({ theme }) => theme.palette.MAIN_COLOR};
+`;
 
 export const Group = styled.div`
   position: relative;
@@ -9,7 +12,7 @@ export const Group = styled.div`
 `;
 
 export const Label = styled.label`
-  color: ${palette.SUB_COLOR};
+  color: ${({ theme }) => theme.palette.SUB_COLOR};
   font-size: 16px;
   font-weight: normal;
   position: absolute;
@@ -18,20 +21,20 @@ export const Label = styled.label`
   top: 10px;
   transition: 300ms ease all;
 
-  ${({ shrink }) => shrink && mixins.shrinkLabelStyles}
+  ${({ shrink }) => shrink && shrinkLabelStyles}
 `;
 
 export const Input = styled.input`
   background: none;
   background-color: #fff;
-  color: ${palette.SUB_COLOR};
+  color: ${({ theme }) => theme.palette.SUB_COLOR};
   font-size: 18px;
   padding: 10px 10px 10px 5px;
   display: block;
   width: 100%;
   border: none;
   border-radius: 0;
-  border-bottom: 1px solid ${palette.SUB_COLOR};
+  border-bottom: 1px solid ${({ theme }) => theme.palette.SUB_COLOR};
   margin: 25px 0;
 
   &[type='password'] {
@@ -43,6 +46,6 @@ export const Input = styled.input`
   }
 
   &:focus ~ ${Label} {
-    ${mixins.shrinkLabelStyles}
+    ${shrinkLabelStyles}
   }
 `;

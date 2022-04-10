@@ -1,4 +1,4 @@
-import { Group, Input, Label } from './form-input-styles/form-input.styles';
+import { Group, Input, Label } from './form-input.styles';
 
 const FormInput = ({ handleChange, label, ...otherProps }) => (
   <Group>

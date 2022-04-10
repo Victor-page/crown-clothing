@@ -15,6 +15,8 @@ import CheckoutPage from './pages/checkout/checkout.component';
 
 import Header from './components/header/header.component';
 
+import Theme from './Theme.component';
+
 import './App.css';
 
 class App extends Component {
@@ -48,7 +50,7 @@ class App extends Component {
       currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />;
 
     return (
-      <div>
+      <Theme>
         <Header />
         <Switch>
           <Route exact component={HomePage} path="/" />
@@ -56,7 +58,7 @@ class App extends Component {
           <Route component={CheckoutPage} exact path="/checkout" />
           <Route exact render={renderSignInAndSignUpPage} path="/signin" />
         </Switch>
-      </div>
+      </Theme>
     );
   }
 }

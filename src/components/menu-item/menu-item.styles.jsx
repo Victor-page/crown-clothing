@@ -15,7 +15,7 @@ export const Content = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid #000;
+  border: 1px solid ${({ theme }) => theme.palette.MAIN_COLOR};
   background-color: #fff;
   opacity: 0.7;
   position: absolute;
@@ -42,7 +42,7 @@ export const MenuItemContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #000;
+  border: 1px solid ${({ theme }) => theme.palette.MAIN_COLOR};
   margin: 0 7.5px 15px;
   overflow: hidden;
 
