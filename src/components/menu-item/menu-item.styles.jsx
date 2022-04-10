@@ -21,9 +21,9 @@ export const Content = styled.div`
   position: absolute;
 `;
 
-export const Title = styled.h1`
+export const Title = styled.h2`
   font-weight: bold;
-  margin-bottom: 6px;
+  margin: 0 0 6px 0;
   font-size: 22px;
   color: #4a4a4a;
   text-transform: uppercase;

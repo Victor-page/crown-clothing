@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const CheckoutItemContainer = styled.div`
   width: 100%;
@@ -20,21 +20,17 @@ export const Image = styled.img`
   height: 100%;
 `;
 
-const columnWidthStyle = css`
+export const Name = styled.span`
   width: 23%;
 `;
 
-export const Name = styled.span`
-  ${columnWidthStyle}
-`;
-
 export const Quantity = styled.span`
-  ${columnWidthStyle}
+  width: 23%;
   display: flex;
 `;
 
 export const Price = styled.span`
-  ${columnWidthStyle}
+  width: 23%;
 `;
 
 export const Arrow = styled.div`

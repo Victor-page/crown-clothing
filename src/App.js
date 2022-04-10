@@ -15,9 +15,7 @@ import CheckoutPage from './pages/checkout/checkout.component';
 
 import Header from './components/header/header.component';
 
-import Theme from './Theme.component';
-
-import './App.css';
+import Theme from './Theme/Theme.component';
 
 class App extends Component {
   unsubscribeFromAuth = () => null;

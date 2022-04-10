@@ -1,10 +1,4 @@
-import styled, { css } from 'styled-components';
-
-const shrinkLabelStyles = css`
-  top: -14px;
-  font-size: 12px;
-  color: ${({ theme }) => theme.palette.MAIN_COLOR};
-`;
+import styled from 'styled-components';
 
 export const Group = styled.div`
   position: relative;
@@ -21,7 +15,7 @@ export const Label = styled.label`
   top: 10px;
   transition: 300ms ease all;
 
-  ${({ shrink }) => shrink && shrinkLabelStyles}
+  ${({ shrink, theme }) => shrink && theme.mixins.SHRINK_LABEL_STYLES}
 `;
 
 export const Input = styled.input`
@@ -46,6 +40,6 @@ export const Input = styled.input`
   }
 
   &:focus ~ ${Label} {
-    ${shrinkLabelStyles}
+    ${({ theme }) => theme.mixins.SHRINK_LABEL_STYLES}
   }
 `;

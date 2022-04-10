@@ -26,7 +26,6 @@ export const CollectionItemContainer = styled.div`
   min-height: 350px;
   align-items: center;
   position: relative;
-  margin-bottom: 30px;
 
   &:hover ${Image} {
     opacity: 0.8;
