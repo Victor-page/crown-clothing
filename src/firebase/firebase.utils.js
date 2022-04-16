@@ -1,6 +1,13 @@
 import { initializeApp } from 'firebase/app';
 import { GoogleAuthProvider, getAuth } from 'firebase/auth';
-import { getFirestore, getDoc, doc, setDoc } from 'firebase/firestore';
+import {
+  getFirestore,
+  getDoc,
+  doc,
+  setDoc,
+  collection,
+  writeBatch,
+} from 'firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyDuenpwjhrSdleiXKnocTAliWpW9JMIDLw',
@@ -15,29 +22,65 @@ initializeApp(firebaseConfig);
 
 export const db = getFirestore();
 
+const transformCollection = (doc) => {
+  const { title, items } = doc.data();
+  const { id } = doc;
+
+  return {
+    route: encodeURI(title.toLowerCase()),
+    id,
+    title,
+    items,
+  };
+};
+
+export const convertCollectionsSnapshotToMap = (collections) => {
+  const transformedCollection = collections.map(transformCollection);
+
+  return transformedCollection.reduce((accumulator, collection) => {
+    accumulator[collection.title.toLowerCase()] = collection;
+    return accumulator;
+  }, {});
+};
+
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) {
     return;
   }
 
   const { displayName, email, uid } = userAuth;
-  const userRef = doc(db, 'users', uid);
-  const docSnap = await getDoc(userRef);
+  const userReference = doc(db, 'users', uid);
+  const documentSnapShot = await getDoc(userReference);
 
-  if (!docSnap.exists()) {
+  if (!documentSnapShot.exists()) {
     try {
-      setDoc(userRef, {
+      const userDocument = {
         displayName,
         email,
         createdAt: new Date(),
         ...additionalData,
-      });
+      };
+      setDoc(userReference, userDocument);
     } catch (error) {
       console.log('error creating the user: ', error.message);
     }
   }
 
-  return userRef;
+  return userReference;
+};
+
+export const addCollectionAndDocuments = async (
+  collectionName,
+  objectsToAdd
+) => {
+  const batch = writeBatch(db);
+
+  objectsToAdd.forEach((object) => {
+    const newDocumentReference = doc(collection(db, collectionName));
+    batch.set(newDocumentReference, object);
+  });
+
+  return await batch.commit();
 };
 
 export const provider = new GoogleAuthProvider();

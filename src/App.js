@@ -15,27 +15,27 @@ import CheckoutPage from './pages/checkout/checkout.component';
 
 import Header from './components/header/header.component';
 
-import Theme from './Theme/Theme.component';
+import Theme from './Theme/theme.component';
 
 class App extends Component {
   unsubscribeFromAuth = () => null;
 
-  observer = async (userAuth) => {
-    const { setCurrentUser } = this.props;
-
-    if (!userAuth) {
-      return setCurrentUser(userAuth);
-    }
-
-    const userRef = await createUserProfileDocument(userAuth);
-    const { id } = userRef;
-    onSnapshot(doc(db, 'users', id), (doc) =>
-      setCurrentUser({ id, ...doc.data() })
-    );
-  };
-
   componentDidMount() {
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(this.observer);
+    const observer = async (userAuth) => {
+      const { setCurrentUser } = this.props;
+
+      if (!userAuth) {
+        return setCurrentUser(userAuth);
+      }
+
+      const userRef = await createUserProfileDocument(userAuth);
+      const { id } = userRef;
+      onSnapshot(doc(db, 'users', id), (document) =>
+        setCurrentUser({ id, ...document.data() })
+      );
+    };
+
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(observer, alert);
   }
 
   componentWillUnmount() {
@@ -44,8 +44,6 @@ class App extends Component {
 
   render() {
     const { currentUser } = this.props;
-    const renderSignInAndSignUpPage = () =>
-      currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />;
 
     return (
       <Theme>
@@ -54,7 +52,13 @@ class App extends Component {
           <Route exact component={HomePage} path="/" />
           <Route component={ShopPage} path="/shop" />
           <Route component={CheckoutPage} exact path="/checkout" />
-          <Route exact render={renderSignInAndSignUpPage} path="/signin" />
+          <Route
+            exact
+            render={() =>
+              currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+            }
+            path="/signin"
+          />
         </Switch>
       </Theme>
     );

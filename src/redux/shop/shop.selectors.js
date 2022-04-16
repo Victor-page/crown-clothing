@@ -12,13 +12,12 @@ export const selectCollections = createSelector(
 
 export const selectCollectionsForPreview = createSelector(
   [selectCollections],
-  (collections) => convertObjectToArray(collections)
+  (collections) => (collections ? convertObjectToArray(collections) : [])
 );
 
 const getCollectionSelector = (collectionUrlParam) =>
-  createSelector(
-    [selectCollections],
-    (collections) => collections[collectionUrlParam]
+  createSelector([selectCollections], (collections) =>
+    collections ? collections[collectionUrlParam] : null
   );
 
 export const selectCollection = memoize(getCollectionSelector);
