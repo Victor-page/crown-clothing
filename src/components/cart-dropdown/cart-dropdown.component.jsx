@@ -1,9 +1,8 @@
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { withRouter } from 'react-router-dom';
 
-import { selectCartItems } from '../../redux/cart/cart.selectors';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
+import { selectCartItems } from '../../redux/cart/cart.selectors';
 
 import CartItem from '../cart-item/cart-item.component';
 
@@ -40,4 +39,4 @@ const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
 });
 
-export default withRouter(connect(mapStateToProps)(CartDropdown));
+export default connect(mapStateToProps)(CartDropdown);

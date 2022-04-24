@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { GoogleAuthProvider, getAuth } from 'firebase/auth';
+import { GoogleAuthProvider, getAuth, onAuthStateChanged } from 'firebase/auth';
 import {
   getFirestore,
   getDoc,
@@ -20,6 +20,8 @@ const firebaseConfig = {
 
 initializeApp(firebaseConfig);
 
+export const googleProvider = new GoogleAuthProvider();
+export const auth = getAuth();
 export const db = getFirestore();
 
 const transformCollection = (doc) => {
@@ -47,7 +49,6 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) {
     return;
   }
-
   const { displayName, email, uid } = userAuth;
   const userReference = doc(db, 'users', uid);
   const documentSnapShot = await getDoc(userReference);
@@ -83,5 +84,15 @@ export const addCollectionAndDocuments = async (
   return await batch.commit();
 };
 
-export const provider = new GoogleAuthProvider();
-export const auth = getAuth();
+const checkUserAuthState = (resolve, reject) => {
+  const unsubscribe = onAuthStateChanged(
+    auth,
+    (user) => {
+      unsubscribe();
+      resolve(user);
+    },
+    reject
+  );
+};
+
+export const getCurrentUser = () => new Promise(checkUserAuthState);
