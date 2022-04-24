@@ -30,10 +30,14 @@ import {
 } from './user.actions';
 
 function* getSnapshotFromUserAuth(user, additionalData) {
-  const userRef = yield call(createUserProfileDocument, user, additionalData);
-  const userSnapshot = yield getDoc(userRef);
-  const { id } = userSnapshot;
-  yield put(signInSuccess({ id, ...userSnapshot.data() }));
+  try {
+    const userRef = yield call(createUserProfileDocument, user, additionalData);
+    const userSnapshot = yield getDoc(userRef);
+    const { id } = userSnapshot;
+    yield put(signInSuccess({ id, ...userSnapshot.data() }));
+  } catch (error) {
+    yield put(signInFailure(error));
+  }
 }
 
 function* signInWithGoogle() {
