@@ -15,7 +15,7 @@ import { HeaderContainer, OptionLink, OptionsContainer } from './header.styles';
 
 const Header = ({ currentUser, hidden, signOutStart }) => (
   <HeaderContainer>
-    <Link to="/">
+    <Link to="/crwn-clothing">
       <Logo className="logo" />
     </Link>
 
