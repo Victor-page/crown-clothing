@@ -1,7 +1,6 @@
-import { useEffect } from 'react';
+import { useEffect, useCallback } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { selectCurrentUser } from './redux/user/user.selectors';
 import { checkUserSession } from './redux/user/user.actions';
@@ -13,26 +12,30 @@ import CheckoutPage from './pages/checkout/checkout.component';
 
 import Header from './components/header/header.component';
 
-const App = ({ currentUser, checkUserSession }) => {
+const App = () => {
+  const currentUser = useSelector(selectCurrentUser);
+  const dispatch = useDispatch();
+
+  const checkUserSessionHandler = useCallback(
+    () => dispatch(checkUserSession()),
+    [dispatch]
+  );
+
   useEffect(() => {
-    checkUserSession();
-  }, [checkUserSession]);
+    checkUserSessionHandler();
+  }, [checkUserSessionHandler]);
 
   return (
     <>
       <Header />
       <Switch>
-        <Route exact component={HomePage} path="/crwn-clothing" />
+        <Route exact component={HomePage} path="/" />
         <Route component={ShopPage} path="/shop" />
         <Route component={CheckoutPage} exact path="/checkout" />
         <Route
           exact
           render={() =>
-            currentUser ? (
-              <Redirect to="/crwn-clothing" />
-            ) : (
-              <SignInAndSignUpPage />
-            )
+            currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
           }
           path="/signin"
         />
@@ -41,12 +44,4 @@ const App = ({ currentUser, checkUserSession }) => {
   );
 };
 
-const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  checkUserSession: () => dispatch(checkUserSession()),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
