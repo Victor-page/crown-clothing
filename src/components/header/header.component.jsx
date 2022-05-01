@@ -15,7 +15,7 @@ import { HeaderContainer, OptionLink, OptionsContainer } from './header.styles';
 const Header = () => {
   const dispatch = useDispatch();
 
-  const signOutStartHandler = dispatch(signOutStart());
+  const signOutStartHandler = () => dispatch(signOutStart());
 
   const currentUser = useSelector(selectCurrentUser);
   const hidden = useSelector(selectCartHidden);
@@ -27,14 +27,14 @@ const Header = () => {
       </Link>
 
       <OptionsContainer>
-        <OptionLink to="/shop">SHOP</OptionLink>
-        <OptionLink to="">CONTACT</OptionLink>
+        <OptionLink to="/shop">Shop</OptionLink>
+        <OptionLink to="">Contact</OptionLink>
         {currentUser ? (
           <OptionLink as="div" onClick={signOutStartHandler}>
-            SIGN OUT
+            Sign Out
           </OptionLink>
         ) : (
-          <OptionLink to="/signin">SIGN IN</OptionLink>
+          <OptionLink to="/signin">Sign In</OptionLink>
         )}
         <CartIcon />
       </OptionsContainer>

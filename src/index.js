@@ -6,7 +6,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { store, persistor } from './redux/store';
 
-import Theme from './Theme/theme.component';
+import Theme from './Theme/Theme.component';
 import App from './App';
 
 import './index.css';
