@@ -1,4 +1,4 @@
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 
 import {
   MenuItemContainer,
@@ -10,8 +10,10 @@ import {
 
 const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
   const history = useHistory();
+  const match = useRouteMatch();
+  const { url } = match;
 
-  const menuItemClickHandler = () => history.push(`/${linkUrl}`);
+  const menuItemClickHandler = () => history.push(`${url}${linkUrl}`);
 
   return (
     <MenuItemContainer size={size} onClick={menuItemClickHandler}>
