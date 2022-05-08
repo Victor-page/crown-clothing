@@ -16,14 +16,15 @@ const App = () => {
   const currentUser = useSelector(selectCurrentUser);
   const dispatch = useDispatch();
 
-  const checkUserSessionHandler = useCallback(
-    () => dispatch(checkUserSession()),
-    [dispatch]
-  );
+  const checkUserSessionHandler = () => dispatch(checkUserSession());
+
+  const preservedCheckUserSession = useCallback(checkUserSessionHandler, [
+    dispatch,
+  ]);
 
   useEffect(() => {
-    checkUserSessionHandler();
-  }, [checkUserSessionHandler]);
+    preservedCheckUserSession();
+  }, [preservedCheckUserSession]);
 
   return (
     <>

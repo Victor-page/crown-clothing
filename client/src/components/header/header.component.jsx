@@ -15,10 +15,10 @@ import { HeaderContainer, OptionLink, OptionsContainer } from './header.styles';
 const Header = () => {
   const dispatch = useDispatch();
 
-  const signOutStartHandler = () => dispatch(signOutStart());
-
   const currentUser = useSelector(selectCurrentUser);
   const hidden = useSelector(selectCartHidden);
+
+  const signOutStartHandler = () => dispatch(signOutStart());
 
   return (
     <HeaderContainer>

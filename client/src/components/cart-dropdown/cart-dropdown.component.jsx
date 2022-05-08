@@ -18,6 +18,7 @@ const CartDropdown = () => {
   const history = useHistory();
 
   const cartItems = useSelector(selectCartItems);
+  const { length: areCartItems } = cartItems;
 
   const goToCheckoutHandler = () => {
     history.push('/checkout');
@@ -28,7 +29,7 @@ const CartDropdown = () => {
   return (
     <CartDropdownContainer>
       <CartItemsList>
-        {cartItems.length ? (
+        {areCartItems ? (
           cartItems.map((cartItem) => (
             <CartItem key={cartItem.id} item={cartItem} />
           ))

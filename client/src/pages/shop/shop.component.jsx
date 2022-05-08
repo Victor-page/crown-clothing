@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { Route } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 
@@ -10,9 +10,16 @@ import CollectionPageContainer from '../collection/collection.container';
 const ShopPage = ({ match: { path } }) => {
   const dispatch = useDispatch();
 
+  const fetchCollectionsStartHandler = () => dispatch(fetchCollectionsStart());
+
+  const preservedFetchCollectionsStart = useCallback(
+    fetchCollectionsStartHandler,
+    [dispatch]
+  );
+
   useEffect(() => {
-    dispatch(fetchCollectionsStart());
-  }, [dispatch]);
+    preservedFetchCollectionsStart();
+  }, [preservedFetchCollectionsStart]);
 
   return (
     <>

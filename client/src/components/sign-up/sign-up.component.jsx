@@ -16,13 +16,12 @@ const INITIAL_FORM_STATE = {
 };
 
 const SignUp = () => {
-  const [credentials, setCredentials] = useState(INITIAL_FORM_STATE);
+  const [{ displayName, email, password, confirmPassword }, setCredentials] =
+    useState(INITIAL_FORM_STATE);
   const dispatch = useDispatch();
 
   const signUpStartHandler = (email, password, displayName) =>
     dispatch(signUpStart(email, password, displayName));
-
-  const { displayName, email, password, confirmPassword } = credentials;
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -76,7 +75,7 @@ const SignUp = () => {
           label="Confirm Password"
           required
         />
-        <CustomButton type="submit">SIGN UP</CustomButton>
+        <CustomButton type="submit">Sign Up</CustomButton>
       </form>
     </SignUpContainer>
   );
