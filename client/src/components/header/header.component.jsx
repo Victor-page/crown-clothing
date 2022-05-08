@@ -22,13 +22,13 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <Link to="/crwn-clothing">
+      <Link to="/">
         <Logo className="logo" />
       </Link>
 
       <OptionsContainer>
         <OptionLink to="/shop">Shop</OptionLink>
-        <OptionLink to="">Contact</OptionLink>
+        <OptionLink to="#">Contact</OptionLink>
         {currentUser ? (
           <OptionLink as="div" onClick={signOutStartHandler}>
             Sign Out
