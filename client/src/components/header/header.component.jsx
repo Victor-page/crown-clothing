@@ -22,7 +22,7 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <Link to="/">
+      <Link to="/crwn-clothing">
         <Logo className="logo" />
       </Link>
 

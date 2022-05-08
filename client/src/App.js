@@ -30,13 +30,17 @@ const App = () => {
     <>
       <Header />
       <Switch>
-        <Route exact component={HomePage} path="/" />
+        <Route exact component={HomePage} path="/crwn-clothing" />
         <Route component={ShopPage} path="/shop" />
         <Route component={CheckoutPage} exact path="/checkout" />
         <Route
           exact
           render={() =>
-            currentUser ? <Redirect to="/" /> : <SignInAndSignUpPage />
+            currentUser ? (
+              <Redirect to="/crwn-clothing" />
+            ) : (
+              <SignInAndSignUpPage />
+            )
           }
           path="/signin"
         />
