@@ -30,6 +30,7 @@ const App = () => {
     <>
       <Header />
       <Switch>
+        <Redirect from="/crwn-clothing" to="/" />
         <Route exact component={HomePage} path="/" />
         <Route component={ShopPage} path="/shop" />
         <Route component={CheckoutPage} exact path="/checkout" />
