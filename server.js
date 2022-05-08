@@ -4,6 +4,11 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Stripe from 'stripe';
 
+const _dirname =
+  typeof __dirname !== 'undefined'
+    ? __dirname
+    : dirname(fileURLToPath(import.meta.url));
+
 if (process.env.NODE_ENV !== 'production') {
   const dotenv = await import('dotenv');
   dotenv.config();
@@ -17,13 +22,11 @@ const port = process.env.PORT || 5000;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
+  app.use(express.static(path.join(_dirname, 'client/build')));
 
   app.get('*', (_, response) =>
-    response.sendFile(path.join(__dirname, 'client/build', 'index.html'))
+    response.sendFile(path.join(_dirname, 'client/build', 'index.html'))
   );
 }
 
