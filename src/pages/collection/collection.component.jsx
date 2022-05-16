@@ -1,6 +1,6 @@
-import { connect } from 'react-redux';
+import { useContext } from 'react';
 
-import { selectCollection } from '../../redux/shop/shop.selectors';
+import CollectionsContext from '../../contexts/collections/collections.context';
 
 import CollectionItem from '../../components/collection-item/collection-item.component';
 
@@ -10,19 +10,25 @@ import {
   ItemsContainer,
 } from './collection.styles';
 
-const CollectionPage = ({ collection: { title, items } }) => (
-  <CollectionPageContainer>
-    <Title>{title}</Title>
-    <ItemsContainer>
-      {items.map((item) => (
-        <CollectionItem key={item.id} item={item} />
-      ))}
-    </ItemsContainer>
-  </CollectionPageContainer>
-);
+const CollectionPage = ({
+  match: {
+    params: { collectionId },
+  },
+}) => {
+  const collections = useContext(CollectionsContext);
+  const collection = collections[collectionId];
+  const { title, items } = collection;
 
-const mapStateToProps = (state, ownProps) => ({
-  collection: selectCollection(ownProps.match.params.collectionId)(state),
-});
+  return (
+    <CollectionPageContainer>
+      <Title>{title}</Title>
+      <ItemsContainer>
+        {items.map((item) => (
+          <CollectionItem key={item.id} item={item} />
+        ))}
+      </ItemsContainer>
+    </CollectionPageContainer>
+  );
+};
 
-export default connect(mapStateToProps)(CollectionPage);
+export default CollectionPage;
