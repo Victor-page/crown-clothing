@@ -6,20 +6,20 @@ import {
 } from '../../redux/cart/cart.selectors';
 
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
-import StripeCheckoutButton from '../../components/stripe-button/stripe-button.component';
+import StripeCheckout from '../../components/stripe-checkout/stripe-checkout.component';
 
 import {
   CheckoutPageContainer,
   CheckoutHeader,
   HeaderBlock,
   Total,
-  WarningContainer,
-  WarningText,
 } from './checkout.styles';
 
 const CheckoutPage = () => {
   const cartItems = useSelector(selectCartItems);
   const total = useSelector(selectCartTotal);
+
+  const areCartItems = Boolean(cartItems.length);
 
   return (
     <CheckoutPageContainer>
@@ -51,13 +51,7 @@ const CheckoutPage = () => {
         />
       ))}
       <Total>Total: ${total}</Total>
-      <WarningContainer>
-        <WarningText>
-          *Please use the following test credit card for payments*
-        </WarningText>
-        <WarningText>4242 4242 4242 4242 - Exp: 12/34 - CVV: 123</WarningText>
-      </WarningContainer>
-      <StripeCheckoutButton price={total} />
+      {areCartItems && <StripeCheckout />}
     </CheckoutPageContainer>
   );
 };
