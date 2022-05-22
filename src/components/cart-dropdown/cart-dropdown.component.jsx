@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import { CartContext } from '../../providers/cart/cart.provider';
 
 import CartItem from '../cart-item/cart-item.component';

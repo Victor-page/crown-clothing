@@ -15,7 +15,7 @@ const CollectionPage = ({
     params: { collectionId },
   },
 }) => {
-  const collections = useContext(CollectionsContext);
+  const { collections } = useContext(CollectionsContext);
   const collection = collections[collectionId];
   const { title, items } = collection;
 

@@ -16,6 +16,7 @@ export const CartContext = createContext({
   removeItem: () => null,
   clearItemFromCart: () => null,
   cartItemsCount: 0,
+  totalPrice: 0,
 });
 
 const CartProvider = ({ children }) => {
@@ -31,9 +32,6 @@ const CartProvider = ({ children }) => {
 
   useEffect(() => {
     setCartItemsCount(getCartItemsCount(cartItems));
-  }, [cartItems]);
-
-  useEffect(() => {
     setTotalPrice(getCartTotalPrice(cartItems));
   }, [cartItems]);
 
