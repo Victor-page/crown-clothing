@@ -1,10 +1,6 @@
-import { connect } from 'react-redux';
+import { useContext } from 'react';
 
-import {
-  clearItemFromCart,
-  addItem,
-  removeItem,
-} from '../../redux/cart/cart.actions';
+import { CartContext } from '../../providers/cart/cart.provider';
 
 import {
   CheckoutItemContainer,
@@ -18,37 +14,28 @@ import {
   RemoveButton,
 } from './checkout-item.styles';
 
-const CheckoutItem = ({
-  name,
-  imageUrl,
-  price,
-  quantity,
-  id,
-  clearItem,
-  addItem,
-  removeItem,
-}) => (
-  <CheckoutItemContainer>
-    <ImageContainer>
-      <Image src={imageUrl} alt={name} />
-    </ImageContainer>
-    <Name>{name}</Name>
-    <Quantity>
-      <Arrow onClick={() => removeItem(id)}>&#10094;</Arrow>
-      <Value>{quantity}</Value>
-      <Arrow onClick={() => addItem({ name, imageUrl, price, quantity, id })}>
-        &#10095;
-      </Arrow>
-    </Quantity>
-    <Price>{price}</Price>
-    <RemoveButton onClick={() => clearItem(id)}>&#10005;</RemoveButton>
-  </CheckoutItemContainer>
-);
+const CheckoutItem = ({ name, imageUrl, price, quantity, id }) => {
+  const { removeItem, addItem, clearItem } = useContext(CartContext);
 
-const mapDispatchToProps = (dispatch) => ({
-  clearItem: (id) => dispatch(clearItemFromCart(id)),
-  addItem: (item) => dispatch(addItem(item)),
-  removeItem: (id) => dispatch(removeItem(id)),
-});
+  const removeItemHandler = () => removeItem(id);
+  const addItemHandler = () => addItem({ name, imageUrl, price, quantity, id });
+  const clearItemHandler = () => clearItem(id);
 
-export default connect(null, mapDispatchToProps)(CheckoutItem);
+  return (
+    <CheckoutItemContainer>
+      <ImageContainer>
+        <Image src={imageUrl} alt={name} />
+      </ImageContainer>
+      <Name>{name}</Name>
+      <Quantity>
+        <Arrow onClick={removeItemHandler}>&#10094;</Arrow>
+        <Value>{quantity}</Value>
+        <Arrow onClick={addItemHandler}>&#10095;</Arrow>
+      </Quantity>
+      <Price>{price}</Price>
+      <RemoveButton onClick={clearItemHandler}>&#10005;</RemoveButton>
+    </CheckoutItemContainer>
+  );
+};
+
+export default CheckoutItem;
