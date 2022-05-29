@@ -1,3 +1,4 @@
+import React from 'react';
 import { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import { doc, onSnapshot } from 'firebase/firestore';
@@ -7,8 +8,6 @@ import { createStructuredSelector } from 'reselect';
 import { auth, createUserProfileDocument, db } from './firebase/firebase.utils';
 import { setCurrentUser } from './redux/user/user.actions';
 import { selectCurrentUser } from './redux/user/user.selectors';
-
-import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
