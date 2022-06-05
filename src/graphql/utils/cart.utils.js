@@ -10,12 +10,18 @@ const adjustQuantityByOne = (operator = '+', itemToAdjustId, cartItem) =>
       }
     : cartItem;
 
+const filterItem = (id, cartItem) => id !== cartItem.id;
+
+const calculateCartTotalPrice = (accumalatedPrice, { quantity, price }) =>
+  accumalatedPrice + quantity * price;
+
 export const addItemToCart = (cartItems, cartItemToAdd) =>
   cartItems.find(findExistingCartItem.bind(null, cartItemToAdd.id))
     ? cartItems.map(adjustQuantityByOne.bind(null, '+', cartItemToAdd.id))
     : [...cartItems, { ...cartItemToAdd, quantity: 1 }];
 
-export const clearItemFromCart = (id, cartItem) => id !== cartItem.id;
+export const clearItemFromCart = (cartItems, id) =>
+  cartItems.filter(filterItem.bind(null, id));
 
 export const removeItemFromCart = (cartItems, cartItemToRemoveId) => {
   const { id, quantity } = cartItems.find(
@@ -24,16 +30,14 @@ export const removeItemFromCart = (cartItems, cartItemToRemoveId) => {
 
   return quantity > 1
     ? cartItems.map(adjustQuantityByOne.bind(null, '-', id))
-    : cartItems.filter(clearItemFromCart.bind(null, cartItemToRemoveId));
+    : cartItems.filter(filterItem.bind(null, cartItemToRemoveId));
 };
 
 export const calculateCartItemsCount = (accumalatedQuantity, { quantity }) =>
   accumalatedQuantity + quantity;
 
-export const calculateCartTotalPrice = (
-  accumalatedPrice,
-  { quantity, price }
-) => accumalatedPrice + quantity * price;
+export const getCartTotal = (cartItems) =>
+  cartItems.reduce(calculateCartTotalPrice, 0);
 
 export const getCartItemCount = (cartItems) =>
   cartItems.reduce(calculateCartItemsCount, 0);
