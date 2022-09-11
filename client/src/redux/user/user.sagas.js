@@ -69,9 +69,7 @@ function* onEmailSignInStart() {
 function* checkUserSession() {
   try {
     const user = yield getCurrentUser();
-    if (!user) {
-      return;
-    }
+    if (!user) return;
 
     yield getSnapshotFromUserAuth(user);
   } catch (error) {
