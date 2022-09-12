@@ -36,7 +36,6 @@ app.listen(port, (error) => {
 });
 
 app.post('/payment', (request, response) => {
-  debugger;
   const {
     body: {
       token: { id },
